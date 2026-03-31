@@ -11,7 +11,7 @@ import { CommonModule } from '@angular/common';
   imports: [IonicModule, FormsModule, CommonModule]
 })
 export class HomePage {
-  valorConta: any = null; // Iniciado como null para o placeholder aparecer
+  valorConta: number = 0;
   porcentagem: number = 10;
   numPessoas: number = 1;
 
@@ -27,12 +27,12 @@ export class HomePage {
   }
 
   calcular() {
-    const valor = parseFloat(this.valorConta);
-    
-    if (valor > 0) {
-      this.gorjetaTotal = valor * (this.porcentagem / 100);
-      this.totalGeral = valor + this.gorjetaTotal;
-      this.totalPorPessoa = this.totalGeral / this.numPessoas;
+    if (this.valorConta > 0 && this.valorConta !== null && !isNaN(this.valorConta)) {
+      this.gorjetaTotal = this.valorConta * (this.porcentagem / 100);
+      this.totalGeral = Number(this.valorConta) + Number(this.gorjetaTotal);
+      
+      const pessoas = this.numPessoas > 0 ? this.numPessoas : 1;
+      this.totalPorPessoa = this.totalGeral / pessoas;
     } else {
       this.gorjetaTotal = 0;
       this.totalGeral = 0;
@@ -41,8 +41,10 @@ export class HomePage {
   }
 
   incrementarPessoas() {
-    this.numPessoas++;
-    this.calcular();
+    if (this.numPessoas < 100) {
+      this.numPessoas++;
+      this.calcular();
+    }
   }
 
   decrementarPessoas() {

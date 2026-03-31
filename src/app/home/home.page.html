@@ -1,61 +1,169 @@
-<ion-header class="ion-no-border">
-  <ion-toolbar color="primary">
-    <ion-title>Gorjeta Pro</ion-title>
+<ion-header>
+  <ion-toolbar color="primary" class="header-toolbar">
+    <ion-title>
+      <div class="title-container">
+        <ion-icon name="restaurant-outline" class="title-icon"></ion-icon>
+        <span>Gorjeta Pro</span>
+      </div>
+    </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <div class="main-container">
-    <ion-card class="input-card">
+<ion-content class="ion-padding">
+  <!-- Card Principal com efeito glassmorphism -->
+  <div class="hero-section">
+    <ion-card class="main-card">
       <ion-card-content>
-        <div class="input-group">
-          <ion-label>Valor Total (Kz)</ion-label>
-          <div class="custom-input-box">
-            <span class="currency">Kz</span>
-            <ion-input 
-              type="number" 
-              inputmode="decimal" 
-              placeholder="0.00" 
-              [(ngModel)]="valorConta" 
-              (ionInput)="calcular()">
-            </ion-input>
+        <div class="valor-container">
+          <ion-item lines="none" class="valor-input-item">
+            <ion-label position="stacked" class="input-label">
+              <ion-icon name="cash-outline" class="label-icon"></ion-icon>
+              Valor Total da Conta (Kz)
+            </ion-label>
+            <div class="input-wrapper">
+              <span class="currency-symbol">Kz</span>
+              <ion-input 
+                type="number" 
+                placeholder="0,00" 
+                [(ngModel)]="valorConta" 
+                (ionInput)="calcular()"
+                class="valor-input">
+              </ion-input>
+            </div>
+          </ion-item>
+        </div>
+
+        <div class="porcentagem-section">
+          <p class="section-title">
+            <ion-icon name="heart-outline"></ion-icon>
+            Porcentagem da Gorjeta
+          </p>
+          <div class="porcentagem-buttons">
+            <button 
+              [class.active]="porcentagem === 10"
+              (click)="setPorcentagem(10)"
+              class="porcentagem-btn">
+              <span class="porcentagem-valor">10%</span>
+              <span class="porcentagem-emoji"></span>
+            </button>
+            <button 
+              [class.active]="porcentagem === 15"
+              (click)="setPorcentagem(15)"
+              class="porcentagem-btn">
+              <span class="porcentagem-valor">15%</span>
+              <span class="porcentagem-emoji"></span>
+            </button>
+            <button 
+              [class.active]="porcentagem === 20"
+              (click)="setPorcentagem(20)"
+              class="porcentagem-btn">
+              <span class="porcentagem-valor">20%</span>
+              <span class="porcentagem-emoji"></span>
+            </button>
           </div>
         </div>
 
-        <div class="tip-section">
-          <ion-label>Quanto quer dar de gorjeta?</ion-label>
-          <div class="button-grid">
-            <button [class.active]="porcentagem === 10" (click)="setPorcentagem(10)">10%</button>
-            <button [class.active]="porcentagem === 15" (click)="setPorcentagem(15)">15%</button>
-            <button [class.active]="porcentagem === 20" (click)="setPorcentagem(20)">20%</button>
+        <div class="pessoas-section">
+          <div class="pessoas-container">
+            <ion-icon name="people-outline" class="pessoas-icon"></ion-icon>
+            <span class="pessoas-label">Dividir por pessoas:</span>
+            <div class="pessoas-control">
+              <button 
+                (click)="decrementarPessoas()"
+                class="pessoas-stepper"
+                [disabled]="numPessoas <= 1">
+                <ion-icon name="remove-outline"></ion-icon>
+              </button>
+              <span class="pessoas-numero">{{ numPessoas }}</span>
+              <button 
+                (click)="incrementarPessoas()"
+                class="pessoas-stepper">
+                <ion-icon name="add-outline"></ion-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <!-- Resultados -->
+  <div *ngIf="valorConta > 0" class="results-section">
+    <ion-card class="results-card">
+      <ion-card-header>
+        <ion-card-title class="results-title">
+          <ion-icon name="receipt-outline"></ion-icon>
+          Resumo da Conta
+        </ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <div class="result-item">
+          <div class="result-label">
+            <ion-icon name="gift-outline"></ion-icon>
+            <span>Gorjeta Total</span>
+          </div>
+          <div class="result-value gorjeta-value">
+            <span class="currency">Kz</span> {{ gorjetaTotal | number:'1.2-2' }}
           </div>
         </div>
 
-        <div class="split-section">
-          <ion-label>Dividir conta por:</ion-label>
-          <div class="stepper">
-            <button (click)="decrementarPessoas()" [disabled]="numPessoas <= 1">-</button>
-            <span>{{ numPessoas }} {{ numPessoas > 1 ? 'pessoas' : 'pessoa' }}</span>
-            <button (click)="incrementarPessoas()">+</button>
+        <div class="result-item">
+          <div class="result-label">
+            <ion-icon name="card-outline"></ion-icon>
+            <span>Total com Gorjeta</span>
+          </div>
+          <div class="result-value total-value">
+            <span class="currency">Kz</span> {{ totalGeral | number:'1.2-2' }}
+          </div>
+        </div>
+
+        <div *ngIf="numPessoas > 1" class="per-person-card">
+          <div class="per-person-content">
+            <ion-icon name="people-circle-outline" class="per-person-icon"></ion-icon>
+            <div class="per-person-text">
+              <p class="per-person-label">CADA PESSOA PAGA</p>
+              <h1 class="per-person-amount">
+                <span class="currency">Kz</span> {{ totalPorPessoa | number:'1.2-2' }}
+              </h1>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mostrar divisão detalhada quando mais de 1 pessoa -->
+        <div *ngIf="numPessoas > 1" class="divisao-detalhada">
+          <p class="divisao-titulo">Divisão detalhada:</p>
+          <div class="divisao-item">
+            <span>Valor da conta por pessoa:</span>
+            <span><strong>Kz {{ (valorConta / numPessoas) | number:'1.2-2' }}</strong></span>
+          </div>
+          <div class="divisao-item">
+            <span>Gorjeta por pessoa:</span>
+            <span><strong>Kz {{ (gorjetaTotal / numPessoas) | number:'1.2-2' }}</strong></span>
           </div>
         </div>
       </ion-card-content>
     </ion-card>
 
-    <div class="results-container" *ngIf="valorConta > 0">
-      <div class="result-row">
-        <span>Gorjeta:</span>
-        <span class="val">Kz {{ gorjetaTotal | number:'1.2-2' }}</span>
-      </div>
-      <div class="result-row total">
-        <span>Total Geral:</span>
-        <span class="val">Kz {{ totalGeral | number:'1.2-2' }}</span>
-      </div>
-      
-      <div class="per-person-box" *ngIf="numPessoas > 1">
-        <small>CADA UM PAGA</small>
-        <h2>Kz {{ totalPorPessoa | number:'1.2-2' }}</h2>
-      </div>
-    </div>
+    <!-- Card de gorjeta sugerida -->
+    <ion-card class="suggestion-card" *ngIf="valorConta > 0">
+      <ion-card-content>
+        <div class="suggestion-content">
+          <ion-icon name="bulb-outline" class="suggestion-icon"></ion-icon>
+          <div class="suggestion-text">
+            <p class="suggestion-title"> Dica de Gorjeta</p>
+            <p class="suggestion-desc">
+              Para um serviço excelente, considere dar 20% de gorjeta (Kz {{ (valorConta * 0.20) | number:'1.2-2' }})
+            </p>
+          </div>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <!-- Placeholder quando não há valor -->
+  <div *ngIf="!valorConta || valorConta === 0" class="empty-state">
+    <ion-icon name="calculator-outline" class="empty-icon"></ion-icon>
+    <p class="empty-text">Digite o valor da conta para começar</p>
+    <p class="empty-subtext">Calcule gorjetas de forma rápida e fácil</p>
   </div>
 </ion-content>
