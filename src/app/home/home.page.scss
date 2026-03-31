@@ -3,9 +3,11 @@
 }
 
 .header-toolbar {
-  --background: rgba(255, 255, 255, 0.95);
+  --background: rgba(255, 255, 255, 0.98);
   --color: #2d3748;
   --border-width: 0;
+  --padding-top: env(safe-area-inset-top);
+  --padding-bottom: 0;
   
   .title-container {
     display: flex;
@@ -13,13 +15,13 @@
     gap: 10px;
     
     .title-icon {
-      font-size: 28px;
+      font-size: 24px;
       color: #667eea;
     }
     
     span {
       font-weight: 600;
-      font-size: 20px;
+      font-size: 18px;
       background: linear-gradient(135deg, #667eea, #764ba2);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -30,45 +32,61 @@
 
 ion-content {
   --background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  --padding-top: 20px;
-  --padding-bottom: 20px;
+  --padding-top: 16px;
+  --padding-bottom: 16px;
+  --padding-start: 16px;
+  --padding-end: 16px;
+  
+  // Ajuste para telas pequenas
+  @media (max-width: 480px) {
+    --padding-top: 12px;
+    --padding-bottom: 12px;
+    --padding-start: 12px;
+    --padding-end: 12px;
+  }
 }
 
 .hero-section {
-  margin-bottom: 20px;
+  margin-bottom: 16px;
 }
 
 .main-card {
-  background: rgba(255, 255, 255, 0.95);
+  background: rgba(255, 255, 255, 0.98);
   backdrop-filter: blur(10px);
-  border-radius: 24px;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  border-radius: 20px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
   margin: 0;
+  width: 100%;
   
   ion-card-content {
-    padding: 24px;
+    padding: 20px;
+    
+    @media (max-width: 480px) {
+      padding: 16px;
+    }
   }
 }
 
 .valor-container {
-  margin-bottom: 28px;
+  margin-bottom: 24px;
 }
 
 .valor-input-item {
   --background: transparent;
   --padding-start: 0;
   --inner-padding-end: 0;
+  --min-height: auto;
   
   .input-label {
     font-size: 14px;
     font-weight: 500;
     color: #4a5568;
-    margin-bottom: 12px;
+    margin-bottom: 8px;
     
     .label-icon {
       margin-right: 8px;
       vertical-align: middle;
-      font-size: 18px;
+      font-size: 16px;
       color: #667eea;
     }
   }
@@ -77,40 +95,41 @@ ion-content {
     display: flex;
     align-items: center;
     background: #f7fafc;
-    border-radius: 16px;
-    padding: 12px 16px;
-    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 12px;
+    border: 1.5px solid #e2e8f0;
     transition: all 0.3s ease;
     
     &:focus-within {
       border-color: #667eea;
-      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+      box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.1);
     }
     
     .currency-symbol {
-      font-size: 20px;
+      font-size: 18px;
       font-weight: 600;
       color: #2d3748;
-      margin-right: 12px;
+      margin-right: 8px;
     }
     
     .valor-input {
       flex: 1;
       --padding-start: 0;
       --padding-end: 0;
-      font-size: 24px;
+      font-size: 20px;
       font-weight: 600;
       color: #2d3748;
       
       input {
         text-align: right;
+        font-size: 20px;
       }
     }
   }
 }
 
 .porcentagem-section {
-  margin-bottom: 28px;
+  margin-bottom: 24px;
   
   .section-title {
     display: flex;
@@ -119,10 +138,10 @@ ion-content {
     font-size: 14px;
     font-weight: 500;
     color: #4a5568;
-    margin-bottom: 16px;
+    margin-bottom: 12px;
     
     ion-icon {
-      font-size: 18px;
+      font-size: 16px;
       color: #667eea;
     }
   }
@@ -130,42 +149,35 @@ ion-content {
 
 .porcentagem-buttons {
   display: flex;
-  gap: 12px;
+  gap: 10px;
   justify-content: space-between;
   
   .porcentagem-btn {
     flex: 1;
     display: flex;
-    flex-direction: column;
     align-items: center;
-    gap: 8px;
-    padding: 16px;
+    justify-content: center;
+    padding: 12px;
     background: #f7fafc;
-    border: 2px solid #e2e8f0;
-    border-radius: 16px;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 12px;
     cursor: pointer;
     transition: all 0.3s ease;
     
     .porcentagem-valor {
-      font-size: 20px;
+      font-size: 16px;
       font-weight: 700;
       color: #2d3748;
     }
     
-    .porcentagem-emoji {
-      font-size: 20px;
-    }
-    
-    &:hover {
-      transform: translateY(-2px);
-      border-color: #667eea;
-      background: #ffffff;
+    &:active {
+      transform: scale(0.98);
     }
     
     &.active {
       background: linear-gradient(135deg, #667eea, #764ba2);
       border-color: #667eea;
-      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+      box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
       
       .porcentagem-valor {
         color: white;
@@ -178,14 +190,14 @@ ion-content {
   .pessoas-container {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
     background: #f7fafc;
-    padding: 12px 20px;
-    border-radius: 16px;
-    border: 2px solid #e2e8f0;
+    padding: 10px 16px;
+    border-radius: 12px;
+    border: 1.5px solid #e2e8f0;
     
     .pessoas-icon {
-      font-size: 24px;
+      font-size: 20px;
       color: #667eea;
     }
     
@@ -193,6 +205,7 @@ ion-content {
       flex: 1;
       font-weight: 500;
       color: #4a5568;
+      font-size: 14px;
     }
     
     .pessoas-control {
@@ -201,9 +214,9 @@ ion-content {
       gap: 12px;
       
       .pessoas-stepper {
-        width: 36px;
-        height: 36px;
-        border-radius: 12px;
+        width: 32px;
+        height: 32px;
+        border-radius: 10px;
         background: white;
         border: 1px solid #e2e8f0;
         display: flex;
@@ -213,17 +226,12 @@ ion-content {
         transition: all 0.2s ease;
         
         ion-icon {
-          font-size: 18px;
+          font-size: 16px;
           color: #667eea;
         }
         
-        &:hover:not(:disabled) {
-          background: #667eea;
-          border-color: #667eea;
-          
-          ion-icon {
-            color: white;
-          }
+        &:active:not(:disabled) {
+          transform: scale(0.95);
         }
         
         &:disabled {
@@ -233,9 +241,9 @@ ion-content {
       }
       
       .pessoas-numero {
-        min-width: 40px;
+        min-width: 35px;
         text-align: center;
-        font-size: 20px;
+        font-size: 18px;
         font-weight: 700;
         color: #2d3748;
       }
@@ -244,35 +252,39 @@ ion-content {
 }
 
 .results-section {
-  animation: slideUp 0.5s ease;
+  animation: slideUp 0.4s ease;
 }
 
 .results-card {
   background: white;
-  border-radius: 24px;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-  margin-bottom: 20px;
+  border-radius: 20px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  margin-bottom: 16px;
+  width: 100%;
   
   ion-card-header {
     padding-bottom: 0;
+    padding-top: 16px;
+    padding-left: 16px;
+    padding-right: 16px;
     
     .results-title {
       display: flex;
       align-items: center;
       gap: 8px;
-      font-size: 18px;
+      font-size: 16px;
       font-weight: 600;
       color: #2d3748;
       
       ion-icon {
         color: #667eea;
-        font-size: 24px;
+        font-size: 20px;
       }
     }
   }
   
   ion-card-content {
-    padding-top: 16px;
+    padding: 16px;
   }
 }
 
@@ -280,7 +292,7 @@ ion-content {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 16px 0;
+  padding: 12px 0;
   border-bottom: 1px solid #e2e8f0;
   
   &:last-child {
@@ -290,23 +302,23 @@ ion-content {
   .result-label {
     display: flex;
     align-items: center;
-    gap: 12px;
-    font-size: 16px;
+    gap: 10px;
+    font-size: 14px;
     font-weight: 500;
     color: #4a5568;
     
     ion-icon {
-      font-size: 20px;
+      font-size: 18px;
       color: #667eea;
     }
   }
   
   .result-value {
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 600;
     
     .currency {
-      font-size: 14px;
+      font-size: 12px;
       font-weight: 500;
       margin-right: 4px;
     }
@@ -322,19 +334,19 @@ ion-content {
 }
 
 .per-person-card {
-  margin-top: 24px;
+  margin-top: 16px;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  border-radius: 20px;
-  padding: 20px;
-  margin-bottom: 20px;
+  border-radius: 16px;
+  padding: 16px;
+  margin-bottom: 16px;
   
   .per-person-content {
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: 12px;
     
     .per-person-icon {
-      font-size: 48px;
+      font-size: 36px;
       color: white;
     }
     
@@ -342,21 +354,21 @@ ion-content {
       flex: 1;
       
       .per-person-label {
-        font-size: 12px;
+        font-size: 11px;
         font-weight: 500;
-        color: rgba(255, 255, 255, 0.8);
-        margin: 0 0 8px 0;
-        letter-spacing: 1px;
+        color: rgba(255, 255, 255, 0.9);
+        margin: 0 0 6px 0;
+        letter-spacing: 0.5px;
       }
       
       .per-person-amount {
-        font-size: 28px;
+        font-size: 24px;
         font-weight: 700;
         color: white;
         margin: 0;
         
         .currency {
-          font-size: 16px;
+          font-size: 14px;
           font-weight: 500;
           margin-right: 4px;
         }
@@ -366,46 +378,48 @@ ion-content {
 }
 
 .divisao-detalhada {
-  margin-top: 20px;
-  padding-top: 20px;
+  margin-top: 16px;
+  padding-top: 16px;
   border-top: 1px solid #e2e8f0;
   
   .divisao-titulo {
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 600;
     color: #4a5568;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
   }
   
   .divisao-item {
     display: flex;
     justify-content: space-between;
-    padding: 8px 0;
-    font-size: 14px;
+    padding: 6px 0;
+    font-size: 13px;
     color: #718096;
     
     strong {
       color: #2d3748;
+      font-weight: 600;
     }
   }
 }
 
 .suggestion-card {
-  background: rgba(255, 255, 255, 0.95);
-  border-radius: 20px;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+  background: rgba(255, 255, 255, 0.98);
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  width: 100%;
   
   ion-card-content {
-    padding: 16px;
+    padding: 14px;
   }
   
   .suggestion-content {
     display: flex;
-    gap: 12px;
+    gap: 10px;
     align-items: flex-start;
     
     .suggestion-icon {
-      font-size: 24px;
+      font-size: 20px;
       color: #f6ad55;
       flex-shrink: 0;
     }
@@ -414,14 +428,14 @@ ion-content {
       flex: 1;
       
       .suggestion-title {
-        font-size: 14px;
+        font-size: 13px;
         font-weight: 600;
         color: #2d3748;
         margin: 0 0 4px 0;
       }
       
       .suggestion-desc {
-        font-size: 12px;
+        font-size: 11px;
         color: #718096;
         margin: 0;
         line-height: 1.4;
@@ -432,24 +446,24 @@ ion-content {
 
 .empty-state {
   text-align: center;
-  padding: 60px 20px;
+  padding: 50px 20px;
   
   .empty-icon {
-    font-size: 80px;
-    color: rgba(255, 255, 255, 0.5);
-    margin-bottom: 20px;
+    font-size: 60px;
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: 16px;
   }
   
   .empty-text {
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 500;
     color: white;
-    margin: 0 0 8px 0;
+    margin: 0 0 6px 0;
   }
   
   .empty-subtext {
-    font-size: 14px;
-    color: rgba(255, 255, 255, 0.7);
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.8);
     margin: 0;
   }
 }
@@ -457,7 +471,7 @@ ion-content {
 @keyframes slideUp {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(15px);
   }
   to {
     opacity: 1;
@@ -465,25 +479,27 @@ ion-content {
   }
 }
 
-@media (max-width: 768px) {
+// Ajustes específicos para dispositivos móveis
+@media (max-width: 480px) {
   .main-card ion-card-content {
-    padding: 20px;
+    padding: 16px;
   }
   
   .porcentagem-btn {
-    padding: 12px;
+    padding: 10px;
     
     .porcentagem-valor {
-      font-size: 18px;
+      font-size: 14px;
     }
   }
   
   .pessoas-container {
     flex-wrap: wrap;
+    gap: 8px;
     
     .pessoas-label {
       width: 100%;
-      margin-bottom: 8px;
+      margin-bottom: 4px;
     }
     
     .pessoas-control {
@@ -493,10 +509,18 @@ ion-content {
   }
   
   .result-value {
-    font-size: 18px;
+    font-size: 16px;
   }
   
   .per-person-amount {
-    font-size: 24px;
+    font-size: 20px;
+  }
+}
+
+// Ajuste para iPhone X e modelos com notch
+@supports (padding: max(0px)) {
+  ion-content {
+    --padding-top: max(16px, env(safe-area-inset-top));
+    --padding-bottom: max(16px, env(safe-area-inset-bottom));
   }
 }

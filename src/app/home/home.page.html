@@ -10,7 +10,7 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-  <!-- Card Principal com efeito glassmorphism -->
+  <!-- Card Principal -->
   <div class="hero-section">
     <ion-card class="main-card">
       <ion-card-content>
@@ -26,6 +26,7 @@
                 type="number" 
                 placeholder="0,00" 
                 [(ngModel)]="valorConta" 
+                (ionChange)="calcular()"
                 (ionInput)="calcular()"
                 class="valor-input">
               </ion-input>
@@ -44,21 +45,18 @@
               (click)="setPorcentagem(10)"
               class="porcentagem-btn">
               <span class="porcentagem-valor">10%</span>
-              <span class="porcentagem-emoji"></span>
             </button>
             <button 
               [class.active]="porcentagem === 15"
               (click)="setPorcentagem(15)"
               class="porcentagem-btn">
               <span class="porcentagem-valor">15%</span>
-              <span class="porcentagem-emoji"></span>
             </button>
             <button 
               [class.active]="porcentagem === 20"
               (click)="setPorcentagem(20)"
               class="porcentagem-btn">
               <span class="porcentagem-valor">20%</span>
-              <span class="porcentagem-emoji"></span>
             </button>
           </div>
         </div>
@@ -150,7 +148,7 @@
         <div class="suggestion-content">
           <ion-icon name="bulb-outline" class="suggestion-icon"></ion-icon>
           <div class="suggestion-text">
-            <p class="suggestion-title"> Dica de Gorjeta</p>
+            <p class="suggestion-title">💡 Dica de Gorjeta</p>
             <p class="suggestion-desc">
               Para um serviço excelente, considere dar 20% de gorjeta (Kz {{ (valorConta * 0.20) | number:'1.2-2' }})
             </p>

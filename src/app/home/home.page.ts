@@ -11,7 +11,7 @@ import { CommonModule } from '@angular/common';
   imports: [IonicModule, FormsModule, CommonModule]
 })
 export class HomePage {
-  valorConta: number = 0;
+  valorConta: number = null as any;
   porcentagem: number = 10;
   numPessoas: number = 1;
 
@@ -27,9 +27,22 @@ export class HomePage {
   }
 
   calcular() {
-    if (this.valorConta > 0 && this.valorConta !== null && !isNaN(this.valorConta)) {
-      this.gorjetaTotal = this.valorConta * (this.porcentagem / 100);
-      this.totalGeral = Number(this.valorConta) + Number(this.gorjetaTotal);
+    // Garantir que valorConta seja um número válido
+    let valor = this.valorConta;
+    
+    if (valor === null || valor === undefined || isNaN(valor)) {
+      valor = 0;
+    }
+    
+    // Converter para número se for string
+    if (typeof valor === 'string') {
+      valor = parseFloat(valor);
+      if (isNaN(valor)) valor = 0;
+    }
+    
+    if (valor > 0) {
+      this.gorjetaTotal = valor * (this.porcentagem / 100);
+      this.totalGeral = valor + this.gorjetaTotal;
       
       const pessoas = this.numPessoas > 0 ? this.numPessoas : 1;
       this.totalPorPessoa = this.totalGeral / pessoas;
@@ -41,7 +54,7 @@ export class HomePage {
   }
 
   incrementarPessoas() {
-    if (this.numPessoas < 100) {
+    if (this.numPessoas < 99) {
       this.numPessoas++;
       this.calcular();
     }
